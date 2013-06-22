@@ -1,0 +1,41 @@
+doctype 5
+html(lang='en')
+	head
+		meta(charset='utf-8')
+		title ROL
+		-var _title = typeof _title == 'undefined' ? "ROL" : _title;
+		-var _img = typeof _img == 'undefined' ? "http://evohome.mv/files/03231b5c07d1072c1c51d1d7afa16d3711f9a91e.jpg" : _img;
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		meta(name='description', content='')
+		meta(name='author', content='')
+		link(href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200', rel='stylesheet', type='text/css')
+		link(href='/stylesheets/bootstrap.css', rel='stylesheet')
+		link(href='/stylesheets/bootstrap-responsive.css', rel='stylesheet')
+		link(href='/stylesheets/bootstrap-select.css', rel='stylesheet')
+		link(href='/stylesheets/styles.css', rel='stylesheet')
+		// if lt IE 9
+			script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
+		link(rel='apple-touch-icon-precomposed', sizes='144x144', href='assets/ico/apple-touch-icon-144-precomposed.png')
+		link(rel='apple-touch-icon-precomposed', sizes='114x114', href='assets/ico/apple-touch-icon-114-precomposed.png')
+		link(rel='apple-touch-icon-precomposed', sizes='72x72', href='assets/ico/apple-touch-icon-72-precomposed.png')
+		link(rel='apple-touch-icon-precomposed', href='assets/ico/apple-touch-icon-57-precomposed.png')
+		script(src='/javascripts/jquery.js')
+		script(src='/javascripts/bootstrap.js')
+		script(src='/javascripts/website.js')
+		style ul.breadcrumb li {text-transform:capitalize}
+	body
+		header#main-header.navbar.navbar-fixed-top
+			nav.navbar-inner
+				.container
+					a.brand(href='#')
+						img(src='img/logo.png')
+		ul.nav.pull-right
+			li
+				a(href='#') About Us
+			li
+				a(href='#') Pay
+			li
+				a(href='#') Services
+			li
+				a(href='#') Contact
+		block content

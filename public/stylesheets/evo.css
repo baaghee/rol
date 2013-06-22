@@ -1,0 +1,515 @@
+    /* GLOBAL STYLES
+    -------------------------------------------------- */
+    /* Padding below the footer and lighter body text */
+
+    body {
+      padding-bottom: 40px;
+      color: #5a5a5a;
+    }
+
+    a:link, a:visited {
+    	color: #543761;
+    }
+
+    .navbar-inverse .btn-navbar:hover, .navbar-inverse .btn-navbar:focus, .navbar-inverse .btn-navbar:active, .navbar-inverse .btn-navbar.active, .navbar-inverse .btn-navbar.disabled, .navbar-inverse .btn-navbar[disabled], .navbar-inverse .btn-navbar, .navbar-inverse .nav-collapse .nav > li > a:hover, .navbar-inverse .nav-collapse .nav > li > a:focus, .navbar-inverse .nav-collapse .dropdown-menu a:hover, .navbar-inverse .nav-collapse .dropdown-menu a:focus {
+    	background: #7500A4;
+    }
+
+    /* CUSTOMIZE THE NAVBAR
+    -------------------------------------------------- */
+
+    /* Special class on .container surrounding .navbar, used for positioning it into place. */
+    .navbar-wrapper {
+      position: relative;
+      z-index: 10;
+      margin-top: 10px;
+      margin-bottom: -90px; /* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
+    }
+
+    /* Remove border and change up box shadow for more contrast */
+    .navbar .navbar-inner {
+      border: 0;
+      -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.25);
+         -moz-box-shadow: 0 2px 10px rgba(0,0,0,.25);
+              box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    }
+
+    /* Downsize the brand/project name a bit */
+    .navbar .brand {
+      padding: 14px 20px 16px; /* Increase vertical padding to match navbar links */
+      font-size: 16px;
+      font-weight: bold;
+      text-shadow: 0 -1px 0 rgba(0,0,0,.5);
+    }
+
+    /* Navbar links: increase padding for taller navbar */
+    .navbar .nav > li > a {
+      padding: 15px 20px;
+    }
+
+    /* Offset the responsive button for proper vertical alignment */
+    .navbar .btn-navbar {
+      margin-top: 10px;
+    }
+
+
+
+    /* CUSTOMIZE THE NAVBAR
+    -------------------------------------------------- */
+
+    /* Carousel base class */
+    .carousel {
+      margin-bottom: 60px;
+    }
+
+    .carousel .container {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    .carousel-control {
+      background-color: transparent;
+      border: 0;
+      font-size: 120px;
+      margin-top: 0;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    }
+
+    .carousel .item {
+      height: 500px;
+    }
+    .carousel img {
+      min-width: 100%;
+      height: 500px;
+    }
+
+    .carousel-caption {
+      background-color: transparent;
+      position: static;
+      max-width: 550px;
+      padding: 0 20px;
+      margin-bottom: 100px;
+    }
+    .carousel-caption h1,
+    .carousel-caption .lead {
+      margin: 0;
+      line-height: 1.25;
+      color: #fff;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    }
+    .carousel-caption .btn {
+      margin-top: 10px;
+    }
+
+
+
+    /* MARKETING CONTENT
+    -------------------------------------------------- */
+
+    /* Center align the text within the three columns below the carousel */
+    .marketing .span4 {
+      text-align: center;
+    }
+    .marketing h2 {
+      font-weight: normal;
+    }
+    .marketing .span4 p {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+
+    /* Featurettes
+    ------------------------- */
+
+    .featurette-divider {
+      margin: 80px 0; /* Space out the Bootstrap <hr> more */
+    }
+    .featurette {
+      padding-top: 120px; /* Vertically center images part 1: add padding above and below text. */
+      overflow: hidden; /* Vertically center images part 2: clear their floats. */
+    }
+    .featurette-image {
+      margin-top: -120px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
+    }
+
+    /* Give some space on the sides of the floated elements so text doesn't run right into it. */
+    .featurette-image.pull-left {
+      margin-right: 40px;
+    }
+    .featurette-image.pull-right {
+      margin-left: 40px;
+    }
+
+    /* Thin out the marketing headings */
+    .featurette-heading {
+      font-size: 50px;
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+
+
+    /* RESPONSIVE CSS
+    -------------------------------------------------- */
+
+    @media (max-width: 979px) {
+
+      .container.navbar-wrapper {
+        margin-bottom: 0;
+        width: auto;
+      }
+      .navbar-inner {
+        border-radius: 0;
+        margin: -20px 0;
+      }
+
+      .carousel .item {
+        height: 500px;
+      }
+      .carousel img {
+        width: auto;
+        height: 500px;
+      }
+
+      .featurette {
+        height: auto;
+        padding: 0;
+      }
+      .featurette-image.pull-left,
+      .featurette-image.pull-right {
+        display: block;
+        float: none;
+        max-width: 40%;
+        margin: 0 auto 20px;
+      }
+    }
+
+
+    @media (max-width: 767px) {
+
+      .navbar-inner {
+        margin: -20px;
+      }
+
+      .carousel {
+        margin-left: -20px;
+        margin-right: -20px;
+      }
+      .carousel .container {
+
+      }
+      .carousel .item {
+        height: 300px;
+      }
+      .carousel img {
+        height: 300px;
+      }
+      .carousel-caption {
+        width: 65%;
+        padding: 0 70px;
+        margin-bottom: 40px;
+      }
+      .carousel-caption h1 {
+        font-size: 30px;
+      }
+      .carousel-caption .lead,
+      .carousel-caption .btn {
+        font-size: 18px;
+      }
+
+      .marketing .span4 + .span4 {
+        margin-top: 40px;
+      }
+
+      .featurette-heading {
+        font-size: 30px;
+      }
+      .featurette .lead {
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+}
+
+#evoCarousel {
+	margin-bottom: 30px;
+	border-bottom: 5px solid #eee;
+}
+
+#evoCarousel .carousel-control {
+	color: rgba(170,170,170,.7);
+}
+
+.navbar .navbar-inner {
+	background: #8900BD;
+}
+
+.navbar-inverse .nav .active > a, .navbar-inverse .nav .active > a:hover, .navbar-inverse .nav .active > a:focus {
+	background: #8100B3;
+}
+
+.navbar-inverse .brand, .navbar-inverse .nav > li > a {
+	color: white;
+}
+
+.btn-primary {
+  color: white!important;
+	background: #8900BD;
+	border: 1px solid #8100B3;
+}
+
+.btn-primary:visited {
+	color: white!important;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
+	background: #7500A4;
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: 'Titillium Web', sans-serif;
+}
+
+#newsletter {
+	text-align: left;
+	border-right: 1px solid #eee;
+	margin-left: 19px;
+	padding-left: 0.8%;
+}
+
+#newsletter p {
+	margin: 0;
+	font-size: 10px;	
+}
+
+#latest, #category-summary {
+	text-align: left;
+	border-right: 1px solid #eee;
+	margin-left: 19px;
+	padding-left: 0.8%;
+}
+
+#category-summary p {
+  margin: 0;
+  margin-top: 10px;
+  font-size: 12px;
+  width: 90%; 
+}
+
+#category-summary h3 {
+  font-weight: normal;
+  color: #543761;
+}
+
+#latest img {
+	width: 60%;
+}
+
+#latest p {
+	margin: 0;
+	font-size: 10px;
+	width: 90%;	
+}
+
+#subCarousel {
+	margin-bottom: 20px;
+}
+
+#subCarousel .carousel-control {
+	color: rgba(0,0,0,.2);
+}
+
+#subCarousel .left  .carousel-control {
+	left: 0;
+}
+
+#subCarousel img {
+	height: auto;
+}
+
+#subCarousel .item {
+	height: auto;
+}
+
+#subCarousel p {
+	font-size: 12px;
+	line-height: 16px;
+}
+
+#featured {
+	text-align: left;
+}
+
+.sharemenu i {
+	color: #ccc;
+	text-decoration: none;
+	line-height: 27px;
+	margin: 0 2px;
+}
+
+.sharemenu i:hover {
+	color: #543761;
+}
+
+.sharemenu .share-on {
+	margin-right: 5px;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.featurette-divider {
+	margin: 30px 0;
+	margin-bottom: 0;
+}
+
+#popular-products p {
+	width: 90%;
+	font-size: 11px;
+	line-height: 18px;
+}
+
+#popular-products h2, #product-recommendations h2 {
+	margin-left: 30px;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 0;
+	font-size: 20px;
+}
+
+#popular-products h3, #product-recommendations h3 {
+	font-weight: normal;
+	font-size: 18px;
+  line-height: 25px;
+	color: #543761;
+	margin-bottom: 0;
+}
+
+#product-recommendations {
+  
+}
+
+#product-recommendations .span1 {
+  margin-left: 50px;
+}
+
+#popular-products .span3 {
+	border-right: 1px solid #eee;
+	margin-left: 29px;
+}
+
+
+#popular-products .span3:last-child {
+	border-right: 0;
+}
+
+
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
+	background: #66008F;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-submenu:hover > a, .dropdown-submenu:focus > a {
+	background: #8900BD;
+}
+
+footer {
+	background: #543761;
+	padding: 15px 0;
+	color: white;
+}
+
+footer li, footer h5 {
+	margin-left: 25px;
+}
+
+#copyright {
+	margin: 0 25px;
+	border-top: 1px solid #6B5A72;
+	padding-top: 15px;
+	font-size: 10px;
+	margin-top: 10px;
+}
+
+footer a:link, footer a:visited {
+	font-size: 12px;
+	color: white;
+}
+
+#category-head {
+	padding-left: 20px;
+	margin-top: 90px;
+}
+
+.cat-featured {
+	margin-left: 0px!important;
+}
+
+#all-products {
+	position: relative;
+}
+
+#all-products a {
+  color: #543761;
+}
+
+#product-detail p {
+  font-size: 12px;
+}
+
+#product-gallery {
+  padding-left: 40px;
+}
+
+#product-gallery img {
+  width: 50px;
+  float: left;
+  margin-right: 10px;
+  padding: 2px;
+  border: 1px solid white;
+}
+
+#product-gallery img:hover {
+  border: 1px solid #eee;
+}
+#brand{
+	height:500px;
+	bottom:-461px;
+	position: absolute;
+	z-index: 1000;
+	padding:24px;
+	background-color:rgba(0,0,0,.6);
+	-webkit-transition: bottom 0.7s  cubic-bezier(.21,.81,.51,.37);
+}
+#brand:hover{
+	bottom:-30px;
+}
+#brand:hover #brand-mini-info{
+	display:none;
+}
+#brand h2{
+	font-size:40px;
+	font-weight:bold;
+	color:white;
+}
+#brand-mini-info{
+	font-size: 22px;
+	margin-left: 58px;
+	font-weight: normal;
+}
+#brand p{
+	color: white;
+	font-family: "Titillium Web", sans-serif;
+	font-size: 22px;
+	line-height: 33px;
+}
+
+
+
+
+
+
+
+
