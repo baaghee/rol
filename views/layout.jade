@@ -12,6 +12,7 @@ html(lang='en')
 		link(href='/stylesheets/bootstrap.css', rel='stylesheet')
 		link(href='/stylesheets/bootstrap-responsive.css', rel='stylesheet')
 		link(href='/stylesheets/bootstrap-select.css', rel='stylesheet')
+		link(href='/stylesheets/bootstrap-tour.min.css', rel='stylesheet')
 		link(href='/stylesheets/styles.css', rel='stylesheet')
 		// if lt IE 9
 			script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
@@ -21,21 +22,40 @@ html(lang='en')
 		link(rel='apple-touch-icon-precomposed', href='assets/ico/apple-touch-icon-57-precomposed.png')
 		script(src='/javascripts/jquery.js')
 		script(src='/javascripts/bootstrap.js')
+		script(src='/javascripts/bootstrap-tour.min.js')
 		script(src='/javascripts/website.js')
 		style ul.breadcrumb li {text-transform:capitalize}
 	body
 		header#main-header.navbar.navbar-fixed-top
 			nav.navbar-inner
 				.container
-					a.brand(href='#')
+					a.brand(href='/')#logo
 						img(src='img/logo.png')
-		ul.nav.pull-right
-			li
-				a(href='#') About Us
-			li
-				a(href='#') Pay
-			li
-				a(href='#') Services
-			li
-				a(href='#') Contact
+					ul.nav.pull-right
+						li
+							a(href='#') About Us
+						li
+							a(href='#') Pay
+						li
+							a(href='#') Services
+						li
+							a(href='#') Contact
+		#top-space.hidden-phone
 		block content
+		footer.container
+			span.pull-left © 2013 ROL
+			ul#footer-links.unstyled.pull-right
+				li
+					a(href='#') Company Info
+				li
+					a(href='#') Site Map
+				li
+					a(href='#') News
+				li
+					a(href='#') Contact Us
+				li
+					a(href='#') Terms of Use
+				li
+					a(href='#') Privacy Policy
+			br.clear
+

@@ -25,7 +25,7 @@ p {
 }
 
 #top-space {
-	margin-top: 70px;
+	margin-top: 97px;
 }
 
 #main-header {
@@ -55,7 +55,7 @@ p {
 #main-header .navbar-inner a {
 	font-weight: bold;
 	color: #555;
-	font-size: 12px;
+	font-size: 1em;
 	padding: 10px;
 }
 

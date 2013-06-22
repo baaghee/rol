@@ -50,8 +50,24 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/users', user.list);
+app.get('/', function(req, res){
+	res.render('index');
+});
+app.get('/company-info', function(req,res){
+	res.render('company-info');
+});
+app.get('/contact', function(req,res){
+	res.render('contact');
+});
+app.get('/jobs', function(req,res){
+	res.render('jobs');
+});
+app.get('/press', function(req,res){
+	res.render('press');
+});
+app.get('/login', function(req,res){
+	res.render('login');
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
