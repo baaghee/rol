@@ -10,19 +10,30 @@ var express = require('express')
   , path = require('path')
   , _ = require('underscore')
   , MongoStore = require('connect-mongo')(express)
+  , async = require('async')
 
 var cms = require('./lib/cms');
 
-cms.add('main_category',{
-	searchable:true,
+
+cms.add('home_infopics',{
+	
 	fields:{
 		name:{type:'string'},
-		tag:{type:'string'},
 		description:{type:'string', multi:true},
-		image:{type:'image', maintain_ratio:false,sizes:[{prefix:"medium", width:270, height:270,}, {prefix:"mediumbig", width:370, height:370}]}
+		image:{type:'image', maintain_ratio:false,  crop_height:150, crop_width:240, sizes:[{prefix:"medium", width:240, height:180,}, {prefix:"mediumbig", width:370, height:370}]}		
 	}
 });
 
+cms.add('jobs_posts',{
+	
+	fields:{
+		name:{type:'string'},
+		description:{type:'string', multi:true, rtl:true},
+		image:{type:'image', maintain_ratio:false,  crop_height:230, crop_width:370, sizes:[{prefix:"medium", width:240, height:180,}, {prefix:"mediumbig", width:370, height:370}]},
+		expiry:{type:'string', datepicker:true},
+		documents:{type:'string'}
+	}
+});
 
 var app = express();
 
@@ -51,7 +62,20 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', function(req, res){
-	res.render('index');
+	async.auto({
+		infopics:function(fn){
+			cms
+			.home_infopics
+			.find()
+			.limit(4)
+			.lean()
+			.exec(fn);
+		}
+	}, 
+	function(err, page){
+		if(err) throw err;
+		res.render('index', page);
+	});
 });
 app.get('/company-info', function(req,res){
 	res.render('company-info');
@@ -60,7 +84,19 @@ app.get('/contact', function(req,res){
 	res.render('contact');
 });
 app.get('/jobs', function(req,res){
-	res.render('jobs');
+	async.auto({
+		posts:function(fn){
+			cms
+			.jobs_posts
+			.find()
+			.lean()
+			.exec(fn);
+		}
+	}, 
+	function(err, page){
+		if(err) throw err;
+		res.render('jobs', page);
+	});
 });
 app.get('/press', function(req,res){
 	res.render('press');

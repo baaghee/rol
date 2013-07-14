@@ -9,6 +9,7 @@
     "express": "3.2.6",
     "jade": "*",
     "underscore": "~1.4.4",
-    "connect-mongo": "~0.3.2"
+    "connect-mongo": "~0.3.2",
+    "async": "~0.2.9"
   }
 }

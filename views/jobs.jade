@@ -21,22 +21,14 @@ block content
 						h3 Simplicity isn't simple
 						p
 							| Ask anyone here. Itâ€™s hard work. It means forever asking, â€œWhy is it this way?â€ and â€œHow can it be better?â€ It means rethinking every customer experience until the clutter has fallen away â€” until all that remains is whatâ€™s essential, useful, and beautiful. That might be a new product feature that delights even die-hard fans. It might be a customer support call, or even a display in an Apple store, arranged and lit exactly so.
-					.span4
-						img.span4.zero-margin.margin-bottom-15(src='http://www.apple.com/jobs/global/images/photo_index_students.jpg')
-						h3 Administrative
-						p
-							| This is where we dream up whatâ€™s next for Apple â€” from hardware to software to the customer experience that goes with it â€” and where we do everything necessary to make it happen. Itâ€™s exciting stuff. And you can be part of it.
-							a(href='#')	Learn more
-					.span4
-						img.span4.zero-margin.margin-bottom-15(src='http://www.apple.com/jobs/global/images/photo_index_retail.jpg')
-						h3 Technical
-						p
-							| This is where we dream up whatâ€™s next for Apple â€” from hardware to software to the customer experience that goes with it â€” and where we do everything necessary to make it happen. Itâ€™s exciting stuff. And you can be part of it.
-							a(href='#')	Learn more
-					.span4
-						img.span4.zero-margin.margin-bottom-15(src='http://www.apple.com/jobs/global/images/photo_index_corporate.jpg')
-						h3 Corporate
-						p
-							| This is where we dream up whatâ€™s next for Apple â€” from hardware to software to the customer experience that goes with it â€” and where we do everything necessary to make it happen. Itâ€™s exciting stuff. And you can be part of it.
-							a(href='#')	Learn more
-
+				.row
+					-if(posts.length)
+						-each post in posts
+							.span4
+								img.span4.zero-margin.margin-bottom-15(src="/files/" + post.image)
+								h3=post.name
+								p!=post.description
+								div.btn-group
+									button.btn More info
+									button.btn.btn-info Apply for this
+									
