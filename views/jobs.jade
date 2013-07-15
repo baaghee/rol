@@ -2,7 +2,7 @@ extends layout
 
 block content
 	include components/subnavs
-	style .description *{font-size:10px !important}
+	include modals/jobs_apply
 	section#body.container
 			#page.row
 				.pages-head.span12
@@ -35,11 +35,9 @@ block content
 									img.span4.zero-margin.margin-bottom-15(src="/files/" + post.image)
 								h3=post.name
 								p!=post.description
-								form(method='post', action='/jobs/apply')
 									div.btn-group
 										button.btn More info
-										input(type='hidden', name='id', value=post._id)
-										input(type='submit', value='Apply for this').btn.btn-info
+										a(href="#jobs_apply", role="button", data-toggle="modal").btn.btn-info Apply for this
 					-else
 						h3 There are no posts available currently
 						h5 Please check this page later to find available posts at ROL
