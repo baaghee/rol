@@ -23,9 +23,19 @@ cms.add('home_infopics',{
 		image:{type:'image', maintain_ratio:false,  crop_height:150, crop_width:240, sizes:[{prefix:"medium", width:240, height:180,}, {prefix:"mediumbig", width:370, height:370}]}		
 	}
 });
-
-cms.add('jobs_posts',{
-	
+cms.add('jobs_page',{
+	single:true,
+	fields:{
+		heading:{type:'string'},
+		description:{type:'string'},
+		image:{type:'image', maintain_ratio:false, crop_width:940, crop_height:285},
+		paragraphone_heading:{type:'string'},
+		paragraphone_details:{type:'string', multi:true},
+		paragraphtwo_heading:{type:'string'},
+		paragraphtwo_details:{type:'string', multi:true},
+	}
+});
+cms.add('jobs_posts',{	
 	fields:{
 		name:{type:'string'},
 		description:{type:'string', multi:true, rtl:true},
@@ -85,6 +95,13 @@ app.get('/contact', function(req,res){
 });
 app.get('/jobs', function(req,res){
 	async.auto({
+		page:function(fn){
+			cms
+			.jobs_page
+			.findOne()
+			.lean()
+			.exec(fn);
+		},
 		posts:function(fn){
 			cms
 			.jobs_posts

@@ -2,33 +2,45 @@ extends layout
 
 block content
 	include components/subnavs
+	style .description *{font-size:10px !important}
 	section#body.container
 			#page.row
-					.pages-head.span12
-						h3 ROL Job Opportunities
+				.pages-head.span12
+					h3 Jobs at ROL
 				.row.company-row
-					#job-heads.span12.center
-						h2.blue-h2 What do you want to do at ROL?
-						p
-							| When thereâ€™s an opening at Apple, we always look to fill it with the best. If that sounds like you, then start your search right here.
-					.span12
-						img.span12.zero-margin(src='http://www.apple.com/jobs/global/images/hero_home1.png')
-					.span6
-						h3 Every detail matters
-						p
-							| Every piece of packaging. Every swipe of the finger. Every â€œHow can I help you?â€ Everything. And it doesnâ€™t matter just some of the time. It matters all of the time. Thatâ€™s how we do things at Apple. The result is some of the best-loved products in the world.
-					.span6
-						h3 Simplicity isn't simple
-						p
-							| Ask anyone here. Itâ€™s hard work. It means forever asking, â€œWhy is it this way?â€ and â€œHow can it be better?â€ It means rethinking every customer experience until the clutter has fallen away â€” until all that remains is whatâ€™s essential, useful, and beautiful. That might be a new product feature that delights even die-hard fans. It might be a customer support call, or even a display in an Apple store, arranged and lit exactly so.
+					-if(page != null)					
+						#job-heads.span12.center
+							if(page.heading)
+								h2.blue-h2=page.heading
+							if(page.description)
+								p=page.description
+						if(page.image)
+							.span12
+								img.span12.zero-margin(src="/files/" + page.image)
+						if(page.paragraphone_heading)
+							.span6
+								h3=page.paragraphone_heading
+								p=page.paragraphone_details
+						if(page.paragraphtwo_heading)
+							.span6
+								h3=page.paragraphtwo_heading
+								p=page.paragraphtwo_details
+				.pages-head.span12
+					h3 Available posts
 				.row
 					-if(posts.length)
 						-each post in posts
 							.span4
-								img.span4.zero-margin.margin-bottom-15(src="/files/" + post.image)
+								if(post.image)
+									img.span4.zero-margin.margin-bottom-15(src="/files/" + post.image)
 								h3=post.name
 								p!=post.description
-								div.btn-group
-									button.btn More info
-									button.btn.btn-info Apply for this
+								form(method='post', action='/jobs/apply')
+									div.btn-group
+										button.btn More info
+										input(type='hidden', name='id', value=post._id)
+										input(type='submit', value='Apply for this').btn.btn-info
+					-else
+						h3 There are no posts available currently
+						h5 Please check this page later to find available posts at ROL
 									
