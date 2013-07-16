@@ -57,6 +57,28 @@ cms.add('company_contacts',{
 		website:{type:'string'}
 	}
 });
+cms.add('services_categories',{
+	fields:{
+		name:{type:'string'},
+		description:{type:'string', multi:true},
+		download:{type:'file'}
+	}
+});
+cms.add('services_packages',{
+	fields:{
+		name:{type:'string'},
+		category:{type:'string', source:'services_categories.name', autocomplete:true},
+		description:{type:'string', multi:true},
+		details:{type:'string', multi:true, rtl:true},
+		price:{type:'string'},
+		download_speed:{type:'string'},
+		upload_speed:{type:'string'},
+		color:{type:'string', colorpicker:true},
+		featured_on_homepage:{type:'boolean'},
+		download:{type:'file'},
+		
+	}
+});
 var app = express();
 
 // all environments
