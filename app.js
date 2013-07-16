@@ -44,7 +44,19 @@ cms.add('jobs_posts',{
 		documents:{type:'string'}
 	}
 });
-
+cms.add('company_contacts',{
+	fields:{
+		name:{type:'string'},
+		description:{type:'string'},
+		address1:{type:'string'},
+		address2:{type:'string'},
+		city:{type:'string'},
+		phone:{type:'string'},
+		fax:{type:'string'},
+		email:{type:'string'},
+		website:{type:'string'}
+	}
+});
 var app = express();
 
 // all environments
@@ -116,7 +128,17 @@ app.get('/jobs', function(req,res){
 	});
 });
 app.get('/press', function(req,res){
-	res.render('press');
+	async.auto({
+		contacts:function(fn){
+			cms.company_contacts
+			.find()
+			.sort({_id:1})
+			.lean()
+			.exec(fn);
+		}
+	}, function(err, page){
+		res.render('press', page);
+	});
 });
 app.get('/login', function(req,res){
 	res.render('login');
