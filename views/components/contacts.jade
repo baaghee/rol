@@ -1,0 +1,31 @@
+if(contacts && contacts.length)
+	-each contact in contacts
+		if(contact.name)
+			h6=contact.name
+		if(contact.description)
+			p!=contact.description
+		ul.unstyled.thirteen
+			if(contact.address1)
+				li=contact.address1
+			if(contact.address2)
+				li=contact.address2
+			if(contact.city)
+				li=contact.city
+			if(contact.phone)
+				li
+					strong Phone: 
+					span=contact.phone
+			if(contact.fax)
+				li
+					strong Fax: 
+					span=contact.fax
+			if(contact.email)
+				li
+					strong Email: 
+					a(href='mailto:' + contact.email)=contact.email
+			if(contact.website)
+				li
+					strong Website: 
+					span=contact.website
+					
+					

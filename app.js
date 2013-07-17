@@ -11,6 +11,9 @@ var express = require('express')
   , _ = require('underscore')
   , MongoStore = require('connect-mongo')(express)
   , async = require('async')
+  , jade_browser = require('jade-browser');
+  
+_.str = require('underscore.string');
 
 var cms = require('./lib/cms');
 
@@ -73,6 +76,7 @@ cms.add('services_packages',{
 		price:{type:'string'},
 		download_speed:{type:'string'},
 		upload_speed:{type:'string'},
+		image:{type:'image', maintain_ratio:false,  crop_height:230, crop_width:530},
 		color:{type:'string', colorpicker:true},
 		featured_on_homepage:{type:'boolean'},
 		download:{type:'file'},
@@ -94,6 +98,11 @@ app.use(express.urlencoded());
 //app.use(connect.multipart());
 app.use(express.session({secret:"herro",store: new MongoStore({url:'mongodb://127.0.0.1:27017/rol'}), cookie: { maxAge: 600000000 ,httpOnly: false, secure: false}}));
 app.use(express.methodOverride());
+app.use(jade_browser('/modals/packages.js', 'package*', {root: __dirname + '/views/modals', cache:false}));	
+app.use(function(req, res, next){
+  	res.header('Vary', 'Accept');
+	next();
+});	
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -166,9 +175,59 @@ app.get('/login', function(req,res){
 	res.render('login');
 });
 app.get('/packages', function(req,res){
-	res.render('packages');
+	async.auto({
+		navigation:function(fn){
+			cms
+			.services_categories
+			.find()
+			.lean()
+			.exec(function(err, docs){
+				if(err) throw err;
+				var nav = generateURL(docs, "name", "packages");
+				fn(err, nav);
+			});
+		},
+		categories:function(fn){
+			cms
+			.services_categories
+			.find()
+			.lean()
+			.exec(fn);
+		},
+		packages:function(fn){
+			cms
+			.services_packages
+			.find()
+			.lean()
+			.exec(function(err, packages){
+				var packages = _.map(packages, function(p){
+					p.url = "/packages/" + _.str.slugify(p.category) + "/" + _.str.slugify(p.name);
+					return p;
+				});
+				fn(err, packages);
+			});
+		}
+	}, function(err, page){
+		var packages_grp = _.groupBy(page.packages,'category');
+		var categories_grp = _.groupBy(page.categories, 'name');
+		var packages = [];
+		for(var p in packages_grp){
+			packages.push({
+				name:p, 
+				description:categories_grp[p][0].description, 
+				packages:packages_grp[p]
+			});
+		}
+		page.packages = packages;
+		res.render('packages', page);
+	});
 });
-
+function generateURL(urls, key, append){
+	var append = append ? "/" + append + "/":'';
+	return _.map(urls, function(d){
+		return {text:d[key], url:append + _.str.slugify(d[key])}
+	});
+}
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
