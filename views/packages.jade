@@ -25,14 +25,19 @@ block content
 		$(function(){
 			var app = Davis(function () {
 				this.get('/packages/:package', function (req) {
-					console.log('hehe');
+					$("#package-modal").modal('hide');
 				});
 				this.get('/packages/:package/:item', function(req){
 					var path = req.path;
+					console.log(req);
 					var data = $('a.package-box[data-path="'+path+'"]').data().data;
 					var modal = jade.render('package',data);
 					$("#modal-container").html(modal);
-					$("#package-modal").modal('show');
+					var m = $("#package-modal").modal('show');
+					m.on('hidden', function(){
+						window.history.go(-1);
+					});
+					//app.trans();
 				});
 			})
 			app.start();
