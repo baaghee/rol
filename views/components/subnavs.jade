@@ -5,4 +5,4 @@ if(navigation && navigation.length)
 						ul.nav
 							-each nav in navigation
 								li
-									a(href=nav.url)=nav.text
+									a(href=nav.url, nav-slug=nav.slug, class=nav.active?"active":"")=nav.text

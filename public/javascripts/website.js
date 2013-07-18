@@ -6,6 +6,7 @@ $(function(){
 		$("#package-row .rol-package .arrow").not().addClass("none");
 		$(this).append('<div class="arrow"></div>');
 	});
+	/*
 	var t = new Tour({useLocalStorage: true});
 	t.addSteps([
 		{
@@ -15,4 +16,5 @@ $(function(){
 		}
 	]);
 	t.start(true);
+*/
 });

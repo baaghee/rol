@@ -175,6 +175,16 @@ app.get('/login', function(req,res){
 	res.render('login');
 });
 app.get('/packages', function(req,res){
+	packages(req, res);
+});
+app.get('/packages/:package', function(req,res){
+	packages(req, res, req.params.package);
+});
+app.get('/packages/:package/:item', function(req,res){
+	packages(req, res, req.params.package, req.params.item);
+});
+
+function packages(req,res,select){
 	async.auto({
 		navigation:function(fn){
 			cms
@@ -183,7 +193,11 @@ app.get('/packages', function(req,res){
 			.lean()
 			.exec(function(err, docs){
 				if(err) throw err;
-				var nav = generateURL(docs, "name", "packages");
+				var nav;
+				if(select)
+					nav = generateURL(docs, "name", "packages", select);
+				else
+					nav = generateURL(docs, "name", "packages");
 				fn(err, nav);
 			});
 		},
@@ -212,20 +226,41 @@ app.get('/packages', function(req,res){
 		var categories_grp = _.groupBy(page.categories, 'name');
 		var packages = [];
 		for(var p in packages_grp){
-			packages.push({
+			var obj = {
 				name:p, 
 				description:categories_grp[p][0].description, 
 				packages:packages_grp[p]
-			});
+			};
+			if(select){
+				if(select == _.str.slugify(p)){
+					obj.active = true;
+				}else{
+					obj.active = false;
+				}
+			}else{
+				obj.active = true;
+			}
+			packages.push(obj);		
 		}
+
 		page.packages = packages;
 		res.render('packages', page);
 	});
-});
-function generateURL(urls, key, append){
+
+}
+
+function generateURL(urls, key, append, select){
 	var append = append ? "/" + append + "/":'';
 	return _.map(urls, function(d){
-		return {text:d[key], url:append + _.str.slugify(d[key])}
+		var obj = {
+			text:d[key], 
+			url:append + _.str.slugify(d[key]),
+			slug:_.str.slugify(d[key])
+		}
+		if(select && obj.slug == select){
+			obj.active = true;
+		}
+		return obj;
 	});
 }
 http.createServer(app).listen(app.get('port'), function(){

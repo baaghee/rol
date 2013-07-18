@@ -8,7 +8,7 @@ block content
 					.pages-head.span12
 						h3 ROL Internet Packages
 				-each package in packages
-					.row.package-row
+					.row.package-row.navigation-block(data-nav=package.name, style=(package.active==true ? "display:block" : "display:none"))
 						.span12
 							h2=package.name
 							if(package.description)
@@ -24,8 +24,22 @@ block content
 	script
 		$(function(){
 			var app = Davis(function () {
+				this.get('/packages', function (req) {
+					$("#package-modal").modal('hide');
+				});
+				this.get('/packages/', function (req) {
+					$("#package-modal").modal('hide');
+				});
 				this.get('/packages/:package', function (req) {
 					$("#package-modal").modal('hide');
+					console.log(req);
+					var self = $(".nav a[nav-slug='"+req.params.package+"']");
+					self.parent().parent().find("a").removeClass("active");
+					self.addClass("active");
+		
+					var nav = self.text();
+					$(".navigation-block[data-nav!='"+nav+"']").hide();
+					$(".navigation-block[data-nav='"+nav+"']").show();					
 				});
 				this.get('/packages/:package/:item', function(req){
 					var path = req.path;
