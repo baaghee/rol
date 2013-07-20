@@ -278,6 +278,32 @@ $(function(){
 			}
 		});
 	});
+	$("body").on("click",".cms-table-column-add", function(){
+		var table = $(this).parent().parent().find("table");
+		var headrow = table.find("thead tr");
+		headrow.append("<th contenteditable='true' style='font-weight:bold'>&nbsp;</th>");
+		//add a column to each row
+		
+		var rows = table.find("tbody tr");
+		if(rows.length){
+			console.log(rows);
+			rows.each(function(row){
+				$(this).append("<td contenteditable='true'>&nbsp;</td>");
+			});
+		}
+	});
+	$("body").on("click",".cms-table-row-add", function(){
+		var table = $(this).parent().parent().find("table");
+		var rows = table.find("tbody");
+		//count columns
+		var length = table.find("thead tr th").length;
+		var new_row = [];
+		for(var i=0;i<length; i++){
+			new_row.push("<td contenteditable='true'>&nbsp;</td>");
+		}
+		new_row.join("");
+		rows.append("<tr>" + new_row + "</tr>");
+	});
 });
 
 var cms = {
@@ -291,6 +317,7 @@ var cms = {
 			file:'<input type="file" />',
 			string:'<input type="text" />',
 			boolean:'<div class="switch" data-on-label="<i class=\'icon-ok icon-white\'></i>" data-off-label="<i class=\'icon-remove\'></i>">    <input type="checkbox"></div>',
+			table:'<div />',
 			component:'<div />',
 			timestamp:'<input type="text" />',
 			string_thaana:'<textarea class="thaana thaana-textarea"></textarea>',
@@ -390,6 +417,21 @@ var cms = {
 					dom.find("input").attr("checked", "checked");
 				}
 				dom.bootstrapSwitch();
+				break;
+			case "table":
+				var _btns = [
+					"<div class='btn-group cms-table-column-add'><button class='btn' type='button'>+ Column</button><button class='btn' type='button'>- Column</button></div>",
+					"<div class='btn-group cms-table-row-add'><button class='btn' type='button'>+ Row</button><button class='btn' type='button'>- Row</button></div>"
+				].join("");
+				var btns = $(_btns);
+				var table = '<table><thead><tr></tr></head><tbody></tbody></table>';
+				table = $(table);
+				table.addClass("table");
+				table.addClass("table-bordered");
+				
+				dom.append(btns);
+				dom.append(table);
+				
 				break;
 			case "string_thaana":
 				dom.thaana();
@@ -526,6 +568,19 @@ var cms = {
 				
 			if(type == "boolean"){
 				form.append(name, elem.bootstrapSwitch('status'))
+			}
+			if(type == "table"){
+				var columns = elem.find("thead tr th").map(function(){
+					return $(this).text();
+				});
+				var rows = elem.find("tbody tr").map(function(){
+					return $(this).children().map(function(){
+						return $(this).text();
+					});
+				});
+				console.log(columns);
+				console.log(rows);
+				//form.append(name, elem.bootstrapSwitch('status'));
 			}
 				
 			if(type == "string_thaana")

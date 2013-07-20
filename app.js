@@ -17,7 +17,13 @@ _.str = require('underscore.string');
 
 var cms = require('./lib/cms');
 
-
+cms.add('website_administration',{
+	single:true,
+	fields:{
+		google_analytics:{type:'string', multi:true},
+		logo:{type:'image', maintain_ratio:false,  crop_height:150, crop_width:240, sizes:[{prefix:"medium", width:240, height:180,}, {prefix:"mediumbig", width:370, height:370}]}		
+	}
+});
 cms.add('home_infopics',{
 	
 	fields:{
@@ -68,8 +74,10 @@ cms.add('services_categories',{
 	}
 });
 cms.add('services_packages',{
+	searchable:true,
 	fields:{
 		name:{type:'string'},
+		info:{type:'table'},
 		category:{type:'string', source:'services_categories.name', autocomplete:true},
 		description:{type:'string', multi:true},
 		details:{type:'string', multi:true, rtl:true},
@@ -180,11 +188,11 @@ app.get('/packages', function(req,res){
 app.get('/packages/:package', function(req,res){
 	packages(req, res, req.params.package);
 });
-app.get('/packages/:package/:item', function(req,res){
-	packages(req, res, req.params.package, req.params.item);
+app.get('/packages/:package/:product', function(req,res){
+	packages(req, res, req.params.package, "/packages/" + req.params.package + "/" + req.params.product);
 });
 
-function packages(req,res,select){
+function packages(req,res,select, product){
 	async.auto({
 		navigation:function(fn){
 			cms
@@ -244,6 +252,12 @@ function packages(req,res,select){
 		}
 
 		page.packages = packages;
+		if(product){
+			page.product = product;
+			var parent = product.split("/");
+			parent.pop();
+			page.product_parent = parent.join("/");
+		}
 		res.render('packages', page);
 	});
 

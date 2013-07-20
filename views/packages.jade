@@ -14,13 +14,26 @@ block content
 							if(package.description)
 								p=package.description
 						-each item in package.packages
-							a.span4.package-box(href=item.url, data-path=item.url, data-data=item)
+							a.span4.package-box(href=item.url, data-path=item.url, data-data=encodeURIComponent(JSON.stringify(item)))
 								.package-box-inner
 									h3=item.name
 									if(item.price)
 										h3=item.price
 									p=item.description
 	#modal-container
+	-if(typeof product != 'undefined')
+		-console.log('here');
+		script
+			$(function(){
+				var data = $('a.package-box[data-path="#{product}"]').data().data;
+				data = JSON.parse(decodeURIComponent(data))
+				var modal = jade.render('package',data);
+				$("#modal-container").html(modal);
+				var m = $("#package-modal").modal('show');
+				m.on('hidden', function(){
+					Davis.location.assign("#{product_parent}");
+				});		
+			});	
 	script
 		$(function(){
 			var app = Davis(function () {
@@ -43,8 +56,8 @@ block content
 				});
 				this.get('/packages/:package/:item', function(req){
 					var path = req.path;
-					console.log(req);
 					var data = $('a.package-box[data-path="'+path+'"]').data().data;
+					data = JSON.parse(decodeURIComponent(data));
 					var modal = jade.render('package',data);
 					$("#modal-container").html(modal);
 					var m = $("#package-modal").modal('show');
