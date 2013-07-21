@@ -66,6 +66,14 @@ cms.add('company_contacts',{
 		website:{type:'string'}
 	}
 });
+cms.add('company_press', {
+	fields:{
+		name:{type:'string'},
+		brief:{type:'string', multi:true},
+		article:{type:'string', multi:true, rtl:true},
+		image:{type:'image', maintain_ratio:false,  crop_height:230, crop_width:530}
+	}
+});
 cms.add('services_categories',{
 	fields:{
 		name:{type:'string'},
@@ -77,7 +85,6 @@ cms.add('services_packages',{
 	searchable:true,
 	fields:{
 		name:{type:'string'},
-		info:{type:'table'},
 		category:{type:'string', source:'services_categories.name', autocomplete:true},
 		description:{type:'string', multi:true},
 		details:{type:'string', multi:true, rtl:true},

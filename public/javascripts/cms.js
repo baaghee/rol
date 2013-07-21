@@ -95,7 +95,6 @@ $(function(){
 	$(".cms-update").live('click',function(){
 		$("#loading").show();
 		var self = $(this).parentsUntil('.accordion-group').parent().parent()[0];
-		console.log(self);
 		var feature = $(this).attr('cms-feature');
 		cms.addNew(feature, $(this), "update", function(err, res){
 			$("#loading").hide();
@@ -304,6 +303,20 @@ $(function(){
 		new_row.join("");
 		rows.append("<tr>" + new_row + "</tr>");
 	});
+	$("body").on("click",".cms-table-column-remove", function(){
+		var table = $(this).parent().parent().find("table");
+		var headrow = table.find("thead tr");
+		//remove last th
+		headrow.find("th:last").remove();
+		//remove last td of all rows
+		
+		var rows = table.find("tbody tr");
+		rows.find("td:last").remove();
+	});
+	$("body").on("click",".cms-table-row-remove", function(){
+		var table = $(this).parent().parent().find("table");
+		table.find("tbody tr:last").remove();
+	});
 });
 
 var cms = {
@@ -420,15 +433,32 @@ var cms = {
 				break;
 			case "table":
 				var _btns = [
-					"<div class='btn-group cms-table-column-add'><button class='btn' type='button'>+ Column</button><button class='btn' type='button'>- Column</button></div>",
-					"<div class='btn-group cms-table-row-add'><button class='btn' type='button'>+ Row</button><button class='btn' type='button'>- Row</button></div>"
+					"<div class='btn-group'><button class='btn cms-table-column-add' type='button'>+ Column</button><button class='btn cms-table-column-remove' type='button'>- Column</button></div>",
+					"<div class='btn-group'><button class='btn cms-table-row-add' type='button'>+ Row</button><button class='btn cms-table-row-remove' type='button'>- Row</button></div>"
 				].join("");
 				var btns = $(_btns);
 				var table = '<table><thead><tr></tr></head><tbody></tbody></table>';
 				table = $(table);
 				table.addClass("table");
 				table.addClass("table-bordered");
-				
+				if(data){
+					var headers = table.find("thead tr");
+					var rows = table.find("tbody");
+					var column_count = data.columns.length;
+
+					//append columns
+					_.each(data.columns, function(column){
+						headers.append("<th contenteditable='true'>"+column+"</th>");
+					});
+					
+					//append rows
+					_.each(data.rows, function(row){
+						var r = _.map(row, function(cell){
+							return "<td contenteditable='true'>"+cell+"</td>";
+						}).join('');
+						rows.append("<tr>"+r+"</tr>");
+					});
+				}
 				dom.append(btns);
 				dom.append(table);
 				
@@ -494,7 +524,6 @@ var cms = {
 				"color": false
 			});
 		}
-		console.log(html);
 		return html;
 	},
 	makeReady:function(name){
@@ -570,19 +599,24 @@ var cms = {
 				form.append(name, elem.bootstrapSwitch('status'))
 			}
 			if(type == "table"){
-				var columns = elem.find("thead tr th").map(function(){
-					return $(this).text();
+				var columns = elem.find("thead tr th")
+				columns = _.map(columns, function(column){
+					return $(column).text();
 				});
-				var rows = elem.find("tbody tr").map(function(){
-					return $(this).children().map(function(){
-						return $(this).text();
+				var rows = elem.find("tbody tr")
+				rows = _.map(rows, function(row){
+					return _.map($(row).children(),function(elem){
+						return $(elem).text();
 					});
 				});
-				console.log(columns);
-				console.log(rows);
-				//form.append(name, elem.bootstrapSwitch('status'));
-			}
+				var data = {
+					columns:columns,
+					rows:rows
+				};
 				
+				data = JSON.stringify(data);
+				form.append(name, data);
+			} 
 			if(type == "string_thaana")
 				form.append(name, elem.is(":checked"))
 				
