@@ -12,6 +12,7 @@
     "connect-mongo": "~0.3.2",
     "async": "~0.2.9",
     "underscore.string": "~2.3.3",
-    "jade-browser": "0.0.13"
+    "jade-browser": "0.0.13",
+    "moment": "~2.1.0"
   }
 }

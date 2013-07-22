@@ -11,8 +11,8 @@ var express = require('express')
   , _ = require('underscore')
   , MongoStore = require('connect-mongo')(express)
   , async = require('async')
-  , jade_browser = require('jade-browser');
-  
+  , jade_browser = require('jade-browser')
+  , moment = require('moment')
 _.str = require('underscore.string');
 
 var cms = require('./lib/cms');
@@ -181,11 +181,23 @@ app.get('/press', function(req,res){
 			.sort({_id:1})
 			.lean()
 			.exec(fn);
+		},
+		press:function(fn){
+			cms.company_press
+			.find()
+			.sort({_id:1})
+			//.lean() /* if lean is used it wont give ObjectId's timestamp */
+			.exec(function(err, docs){
+				if(err) throw err;
+				console.log(typeof docs[0]._id.getTimestamp());
+				fn(null,null);
+			});
 		}
 	}, function(err, page){
 		res.render('press', page);
 	});
 });
+
 app.get('/login', function(req,res){
 	res.render('login');
 });
