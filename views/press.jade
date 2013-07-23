@@ -8,48 +8,49 @@ block content
 						h3 Press Releases
 				.row.company-row
 					.span9.thirteen
-						h5 June 2013
-						ul.unstyled
-							li.row.press-row
-								.span1
-									| 06/19/2013
-								.span10
-									ul.unstyled
-										li
-											a(href='#') Apple Awarded $30 Million iPad Deal From LA Unified School District
-										li
-											a(href='#') HBO GO & WatchESPN Come to Apple TV
-										li
-											a(href='#')
-												| Apple Releases Developer Preview of OS X Mavericks With More Than 200 New Features
-							li.row.press-row
-								.span1
-									| 06/19/2013
-								.span10
-									ul.unstyled
-										li
-											a(href='#')
-												| Justin Timberlake, Thirty Seconds to Mars, Jack Johnson, Jessie J & Many More Fan Favorites to Headline iTunes Festival in London
-										li
-											a(href='#') Tim Cook's Opening Statement Before the Permanent Subcommittee on Investigations
-							li.row.press-row
-								.span1
-									| 06/19/2013
-								.span10
-									ul.unstyled
-										li
-											a(href='#') HBO GO & WatchESPN Come to Apple TV
-										li
-											a(href='#') Apple Unveils iOS 7
-							li.row.press-row
-								.span1
-									| 06/19/2013
-								.span10
-									ul.unstyled
-										li
-											a(href='#') HBO GO & WatchESPN Come to Apple TV
-										li
-											a(href='#') Apple Unveils iOS 7
+						-for value, month in press
+							h5=month
+							ul.unstyled
+								li.row.press-row
+									.span1
+										| 06/19/2013
+									.span10
+										ul.unstyled
+											li
+												a(href='#') Apple Awarded $30 Million iPad Deal From LA Unified School District
+											li
+												a(href='#') HBO GO & WatchESPN Come to Apple TV
+											li
+												a(href='#')
+													| Apple Releases Developer Preview of OS X Mavericks With More Than 200 New Features
+								li.row.press-row
+									.span1
+										| 06/19/2013
+									.span10
+										ul.unstyled
+											li
+												a(href='#')
+													| Justin Timberlake, Thirty Seconds to Mars, Jack Johnson, Jessie J & Many More Fan Favorites to Headline iTunes Festival in London
+											li
+												a(href='#') Tim Cook's Opening Statement Before the Permanent Subcommittee on Investigations
+								li.row.press-row
+									.span1
+										| 06/19/2013
+									.span10
+										ul.unstyled
+											li
+												a(href='#') HBO GO & WatchESPN Come to Apple TV
+											li
+												a(href='#') Apple Unveils iOS 7
+								li.row.press-row
+									.span1
+										| 06/19/2013
+									.span10
+										ul.unstyled
+											li
+												a(href='#') HBO GO & WatchESPN Come to Apple TV
+											li
+												a(href='#') Apple Unveils iOS 7
 					.span3
 						h3 Contact Us
 						include components/contacts

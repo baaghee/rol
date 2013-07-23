@@ -189,8 +189,12 @@ app.get('/press', function(req,res){
 			//.lean() /* if lean is used it wont give ObjectId's timestamp */
 			.exec(function(err, docs){
 				if(err) throw err;
-				console.log(typeof docs[0]._id.getTimestamp());
-				fn(null,null);
+				var times = _.groupBy(docs,function(e){
+					var x = moment(e._id.getTimestamp()); 
+					var d = x.format('MMMM YYYY'); 
+					return d; 
+				});
+				fn(null,times);
 			});
 		}
 	}, function(err, page){
