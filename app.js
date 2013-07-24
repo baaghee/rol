@@ -71,7 +71,7 @@ cms.add('company_press', {
 		name:{type:'string'},
 		brief:{type:'string', multi:true},
 		article:{type:'string', multi:true, rtl:true},
-		image:{type:'image', maintain_ratio:false,  crop_height:230, crop_width:530}
+		image:{type:'image', maintain_ratio:false,  crop_height:350, crop_width:700}
 	}
 });
 cms.add('services_categories',{
@@ -175,6 +175,24 @@ app.get('/jobs', function(req,res){
 	});
 });
 app.get('/press', function(req,res){
+	press(req,res);
+});
+app.get('/press/:article', function(req,res){
+	press(req,res,req.params.article);
+});
+app.get('/login', function(req,res){
+	res.render('login');
+});
+app.get('/packages', function(req,res){
+	packages(req, res);
+});
+app.get('/packages/:package', function(req,res){
+	packages(req, res, req.params.package);
+});
+app.get('/packages/:package/:product', function(req,res){
+	packages(req, res, req.params.package, "/packages/" + req.params.package + "/" + req.params.product);
+});
+function press(req,res,article){
 	async.auto({
 		contacts:function(fn){
 			cms.company_contacts
@@ -194,6 +212,7 @@ app.get('/press', function(req,res){
 					docs[i].url = "/press/" + _.str.slugify(docs[i].name);
 					docs[i].slug = _.str.slugify(docs[i].name);
 					docs[i].date = moment(docs[i]._id.getTimestamp()).format("DD/MM/YYYY");
+					
 				}
 				var times = _.groupBy(docs,function(e){
 					var x = moment(e._id.getTimestamp()); 
@@ -204,23 +223,13 @@ app.get('/press', function(req,res){
 			});
 		}
 	}, function(err, page){
+		if(article){
+			page.select = article;
+		}
 		res.render('press', page);
 	});
-});
 
-app.get('/login', function(req,res){
-	res.render('login');
-});
-app.get('/packages', function(req,res){
-	packages(req, res);
-});
-app.get('/packages/:package', function(req,res){
-	packages(req, res, req.params.package);
-});
-app.get('/packages/:package/:product', function(req,res){
-	packages(req, res, req.params.package, "/packages/" + req.params.package + "/" + req.params.product);
-});
-
+}
 function packages(req,res,select, product){
 	async.auto({
 		navigation:function(fn){

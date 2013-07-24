@@ -8,7 +8,7 @@ block content
 					.pages-head.span12
 						h3 Press Releases
 				.row.company-row
-					.span9.thirteen#press-releases
+					.span9.thirteen#press-releases(class=select ? " hide " : "")
 						-for value, month in press
 							h5=month
 							ul.unstyled
@@ -18,24 +18,32 @@ block content
 										.span10
 											ul.unstyled
 												li
-													a(href=article.url, data-slug=article.slug, data-article=encodeURIComponent(article.article))=article.name
+													a(href=article.url, data-slug=article.slug, data-article=encodeURIComponent(JSON.stringify(article)))=article.name
 					.span9#press-releases-display
-
+						-if(select)
+							h2 h3y
 					.span3
 						h3 Contact Us
 						include components/contacts
 	script
 		$(function(){
 			var app = Davis(function () {
-				this.get('/packages', function (req) {
-					$("#package-modal").modal('hide');
+				this.get('/press', function (req) {
+					$("#press-releases-display").hide();
+					$("#press-releases").show();
+				});
+				this.get('/press/', function (req) {
+					$("#press-releases-display").hide();
+					$("#press-releases").show();
 				});
 				this.get('/packages/', function (req) {
 					$("#package-modal").modal('hide');
 				});
 				this.get('/press/:title', function (req) {
 					var article = $("a[data-slug='"+req.params.title+"']");
-					$("#press-releases-display").html(jade.render('press-article'));
+					$("#press-releases").hide();
+					var art = JSON.parse(decodeURIComponent(article.data().article));
+					$("#press-releases-display").html(jade.render('press-article',art)).show();
 				});
 			})
 			app.start();

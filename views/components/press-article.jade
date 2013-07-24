@@ -1,5 +1,6 @@
 div
-	h1 Title
+	h1=name
 	div Published time: July 23, 2013 17:14
-	img(src='http://rt.com/files/news/1f/db/30/00/000_was3460239.si.jpg')
-	div stuff
+	-if(typeof image == 'string')
+		img(src="/files/" + image)
+	div!=article
