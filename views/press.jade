@@ -2,55 +2,41 @@ extends layout
 
 block content
 	include components/subnavs
+	script(src='/templates.js')
 	section#body.container
 			#page.row
 					.pages-head.span12
 						h3 Press Releases
 				.row.company-row
-					.span9.thirteen
+					.span9.thirteen#press-releases
 						-for value, month in press
 							h5=month
 							ul.unstyled
-								li.row.press-row
-									.span1
-										| 06/19/2013
-									.span10
-										ul.unstyled
-											li
-												a(href='#') Apple Awarded $30 Million iPad Deal From LA Unified School District
-											li
-												a(href='#') HBO GO & WatchESPN Come to Apple TV
-											li
-												a(href='#')
-													| Apple Releases Developer Preview of OS X Mavericks With More Than 200 New Features
-								li.row.press-row
-									.span1
-										| 06/19/2013
-									.span10
-										ul.unstyled
-											li
-												a(href='#')
-													| Justin Timberlake, Thirty Seconds to Mars, Jack Johnson, Jessie J & Many More Fan Favorites to Headline iTunes Festival in London
-											li
-												a(href='#') Tim Cook's Opening Statement Before the Permanent Subcommittee on Investigations
-								li.row.press-row
-									.span1
-										| 06/19/2013
-									.span10
-										ul.unstyled
-											li
-												a(href='#') HBO GO & WatchESPN Come to Apple TV
-											li
-												a(href='#') Apple Unveils iOS 7
-								li.row.press-row
-									.span1
-										| 06/19/2013
-									.span10
-										ul.unstyled
-											li
-												a(href='#') HBO GO & WatchESPN Come to Apple TV
-											li
-												a(href='#') Apple Unveils iOS 7
+								-each article in value
+									li.row.press-row
+										.span1=article.date
+										.span10
+											ul.unstyled
+												li
+													a(href=article.url, data-slug=article.slug, data-article=encodeURIComponent(article.article))=article.name
+					.span9#press-releases-display
+
 					.span3
 						h3 Contact Us
 						include components/contacts
+	script
+		$(function(){
+			var app = Davis(function () {
+				this.get('/packages', function (req) {
+					$("#package-modal").modal('hide');
+				});
+				this.get('/packages/', function (req) {
+					$("#package-modal").modal('hide');
+				});
+				this.get('/press/:title', function (req) {
+					var article = $("a[data-slug='"+req.params.title+"']");
+					$("#press-releases-display").html(jade.render('press-article'));
+				});
+			})
+			app.start();
+		});

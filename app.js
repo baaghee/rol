@@ -114,6 +114,7 @@ app.use(express.urlencoded());
 app.use(express.session({secret:"herro",store: new MongoStore({url:'mongodb://127.0.0.1:27017/rol'}), cookie: { maxAge: 600000000 ,httpOnly: false, secure: false}}));
 app.use(express.methodOverride());
 app.use(jade_browser('/modals/packages.js', 'package*', {root: __dirname + '/views/modals', cache:false}));	
+app.use(jade_browser('/templates.js', '**', {root: __dirname + '/views/components', cache:false}));	
 app.use(function(req, res, next){
   	res.header('Vary', 'Accept');
 	next();
@@ -185,10 +186,15 @@ app.get('/press', function(req,res){
 		press:function(fn){
 			cms.company_press
 			.find()
-			.sort({_id:1})
+			.sort({_id:-1})
 			//.lean() /* if lean is used it wont give ObjectId's timestamp */
 			.exec(function(err, docs){
 				if(err) throw err;
+				for(var i=0; i<docs.length; i++){
+					docs[i].url = "/press/" + _.str.slugify(docs[i].name);
+					docs[i].slug = _.str.slugify(docs[i].name);
+					docs[i].date = moment(docs[i]._id.getTimestamp()).format("DD/MM/YYYY");
+				}
 				var times = _.groupBy(docs,function(e){
 					var x = moment(e._id.getTimestamp()); 
 					var d = x.format('MMMM YYYY'); 
