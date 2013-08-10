@@ -498,3 +498,11 @@ a.product-listing{
 	font-weight:bold;
 }
 
+.contactmsg{
+     -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;    
+     box-sizing: border-box;        
+     width:100%;
+     min-height:300px; 
+}
+
