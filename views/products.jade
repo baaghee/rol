@@ -1,0 +1,63 @@
+extends layout
+
+block content
+	//include components/subnavs
+	script(src="/modals/products.js")
+	section#body.container
+			#page.row
+				div.span3
+					h2 Products
+					div.products-categories#products-categories
+						-each cat in categories
+							h3
+								-if(cat.selected)
+									a.active(href=cat.url)=cat.name
+								-else
+									a(href=cat.url)=cat.name
+				div.span9(style='padding-top: 30px;')
+					div.row
+						-each product in products
+							a(href=product.url, data-path=product.url, data-category=product.category, data-category-slug=product.slug_cat, class="product-listing span3 " + (product.selected == false? "hide" : ""), data-data=encodeURIComponent(JSON.stringify(product)))
+								img(src="/files/" + product.image)
+								h4=product.name
+								h4.price=product.price
+						
+	#modal-container
+	-if(typeof selected_product != 'undefined')
+		script
+			$(function(){
+				var data = $('a.product-listing[data-path="#{selected_product}"]').data().data;
+				data = JSON.parse(decodeURIComponent(data))
+				var modal = jade.render('product',data);
+				$("#modal-container").html(modal);
+				var m = $("#product-modal").modal('show');
+				m.on('hidden', function(){
+					Davis.location.assign("#{selected_product_parent}");
+				});		
+			});	
+	script
+		$(function(){
+			//setTimeout(function(){window.location = window.location},300);
+			var app = Davis(function () {
+				this.get('/products/:category', function(req){
+					$("#products-categories a").removeClass("active");
+					$("#products-categories a[href='/products/"+req.params.category+"']").addClass("active");
+					$(".product-listing").removeClass("hide");
+					$("a.product-listing[data-category-slug!='"+req.params.category+"']").addClass("hide");	
+				});
+				this.get('/products/:category/:item', function(req){
+					var path = req.path;
+					var data = $('a.product-listing[data-path="'+path+'"]').data().data;
+					data = JSON.parse(decodeURIComponent(data));
+					var modal = jade.render('product',data);
+					$("#modal-container").html(modal);
+					var m = $("#product-modal").modal('show');
+					m.on('hidden', function(){
+						window.history.go(-1);
+					});
+					//app.trans();
+				});
+				
+			})
+			app.start();
+		});

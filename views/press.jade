@@ -6,7 +6,8 @@ block content
 	section#body.container
 			#page.row
 					.pages-head.span12
-						h3 Press Releases
+						h3
+							a(href='/press') Press Releases
 				.row.company-row
 					.span9.thirteen#press-releases(class=select ? " hide " : "")
 						-for value, month in press
@@ -21,7 +22,8 @@ block content
 													a(href=article.url, data-slug=article.slug, data-article=encodeURIComponent(JSON.stringify(article)))=article.name
 					.span9#press-releases-display
 						-if(select)
-							h2 h3y
+							-var article = select;
+							include components/press-article
 					.span3
 						h3 Contact Us
 						include components/contacts
@@ -43,7 +45,7 @@ block content
 					var article = $("a[data-slug='"+req.params.title+"']");
 					$("#press-releases").hide();
 					var art = JSON.parse(decodeURIComponent(article.data().article));
-					$("#press-releases-display").html(jade.render('press-article',art)).show();
+					$("#press-releases-display").html(jade.render('press-article',{article:art})).show();
 				});
 			})
 			app.start();

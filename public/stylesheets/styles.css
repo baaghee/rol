@@ -483,3 +483,18 @@ footer {
 #job-heads {
 	margin-bottom: 15px;
 }
+a.product-listing{
+	text-decoration:none;
+	height:380px;
+}
+.product-listing .price{
+	color:#c0c0c0;
+	
+}
+.products-categories h3 a{
+	color:#555;
+}
+.products-categories h3 a.active {
+	font-weight:bold;
+}
+

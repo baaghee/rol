@@ -1,6 +1,6 @@
 div
-	h1=name
+	h1=article.name
 	div Published time: July 23, 2013 17:14
-	-if(typeof image == 'string')
-		img(src="/files/" + image)
-	div!=article
+	-if(typeof article.image == 'string')
+		img(src="/files/" + article.image)
+	div!=article.article

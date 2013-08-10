@@ -1,0 +1,20 @@
+#product-modal.modal.hide.fade(tabindex='-1', data-width='760')
+	.modal-header
+		button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+		h2.modal-title=name
+		a(href='').btn.btn-info Buy this item for MVR 
+			strong=price
+	.modal-body
+		-if(typeof pictures != 'undefined' && pictures.length > 0)
+			div.carousel.slide#prod_car
+				div.carousel-inner
+					-var act = false;
+					-each img in pictures
+						div.item(class=(act == false ? "active" : ""))
+							div
+								img(src='/files/' + img)
+								-act = true;
+				a.left.carousel-control(href='#prod_car', data-slide='prev') ‹
+				a.right.carousel-control(href='#prod_car', data-slide='next') ›
+			div!=details
+

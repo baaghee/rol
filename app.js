@@ -81,6 +81,25 @@ cms.add('services_categories',{
 		download:{type:'file'}
 	}
 });
+cms.add('sales_categories', {
+	searchable:true,
+	fields:{
+		name:{type:'string'},
+		details:{type:'string', multi:true}
+	}
+});
+cms.add('sales_products', {
+	searchable:true,
+	fields:{
+		name:{type:'string'},
+		category:{type:'string', source:'sales_categories.name', autocomplete:true},
+		image:{type:'image', maintain_ratio:false,  crop_height:270, crop_width:270},
+		pictures:{type:'images', maintain_ratio:false,  crop_width:530, crop_height:270},
+		description:{type:'string', multi:true},
+		details:{type:'string', multi:true, rtl:true},
+		price:{type:'string'}
+	}
+});
 cms.add('services_packages',{
 	searchable:true,
 	fields:{
@@ -114,6 +133,7 @@ app.use(express.urlencoded());
 app.use(express.session({secret:"herro",store: new MongoStore({url:'mongodb://127.0.0.1:27017/rol'}), cookie: { maxAge: 600000000 ,httpOnly: false, secure: false}}));
 app.use(express.methodOverride());
 app.use(jade_browser('/modals/packages.js', 'package*', {root: __dirname + '/views/modals', cache:false}));	
+app.use(jade_browser('/modals/products.js', 'product*', {root: __dirname + '/views/modals', cache:false}));	
 app.use(jade_browser('/templates.js', '**', {root: __dirname + '/views/components', cache:false}));	
 app.use(function(req, res, next){
   	res.header('Vary', 'Accept');
@@ -192,7 +212,75 @@ app.get('/packages/:package', function(req,res){
 app.get('/packages/:package/:product', function(req,res){
 	packages(req, res, req.params.package, "/packages/" + req.params.package + "/" + req.params.product);
 });
+app.get('/products', function(req, res){
+	products(req, res);
+});
+app.get('/products/:category', function(req, res){
+	products(req, res, req.params.category);
+});
+app.get('/products/:category/:product', function(req, res){
+	var product = req.params.product;
+	products(req, res, req.params.category, product);
+});
+function products(req, res, category, product){
+	if(product){
+		product = product.split("-");
+		product.pop();
+		product = product.join("-");
+	}
+	async.auto({
+		products:function(fn){
+			cms
+			.sales_products
+			.find()
+			.sort({_id:1})
+			.lean()
+			.exec(fn);
+		}
+	}, function(err, products){
+		var selected_product
+		 ,  selected_product_parent;
+		    
+		for(var i=0; i<products.products.length; i++){
+			var slug_cat = _.str.slugify(products.products[i].category);
+			var slug_prod = _.str.slugify(products.products[i].name);
+			products.products[i].slug = slug_prod;
+			products.products[i].slug_cat = slug_cat;
+			products.products[i].url = "/products/" + slug_cat + "/" + slug_prod + "-" + products.products[i]._id;
+			products.products[i].selected = true;
+			if(category && category != slug_cat){
+				products.products[i].selected = false;
+			}
+			if(product && product == products.products[i].slug){				
+				selected_product = products.products[i].url;
+				selected_product_parent = "/products/" + slug_cat;
+			}
+		}
+		//categories
+		products.categories = _.uniq(_.pluck(products.products,'category'));
+		for(var i=0; i<products.categories.length; i++){
+			products.categories[i] = {
+				name: products.categories[i],
+				slug: _.str.slugify(products.categories[i]),
+				url: '/products/' + _.str.slugify(products.categories[i])
+			}
+			if(category && category == products.categories[i].slug){
+				products.categories[i].selected = true;
+			}
+		}
+		if(category){
+			products.selected = category;
+			if(product){
+				products.selected_product = selected_product;
+				products.selected_product_parent = selected_product_parent;
+			}
+		}
+		res.render('products', products);
+	});
+
+}
 function press(req,res,article){
+	var sel;
 	async.auto({
 		contacts:function(fn){
 			cms.company_contacts
@@ -212,7 +300,9 @@ function press(req,res,article){
 					docs[i].url = "/press/" + _.str.slugify(docs[i].name);
 					docs[i].slug = _.str.slugify(docs[i].name);
 					docs[i].date = moment(docs[i]._id.getTimestamp()).format("DD/MM/YYYY");
-					
+					if(article == docs[i].slug){
+						sel = docs[i];
+					}
 				}
 				var times = _.groupBy(docs,function(e){
 					var x = moment(e._id.getTimestamp()); 
@@ -224,7 +314,7 @@ function press(req,res,article){
 		}
 	}, function(err, page){
 		if(article){
-			page.select = article;
+			page.select = sel;
 		}
 		res.render('press', page);
 	});

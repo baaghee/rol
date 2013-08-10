@@ -613,3 +613,8 @@ body {
 .headingblock strong:hover {
   color: #fff;
 }
+
+.product-listing{
+	width:300px !important;
+}
+

@@ -1,7 +1,20 @@
 div#jobs_apply.modal.hide.fade(tabindex='-1',role='dialog',aria-hidden='true',style='display: none;')
 	div.modal-header
-		h3 Please 
-			a(href='/auth/facebook').btn.fb-btn
-				i.icon-facebook
-				| Login with Facebook
-			| to post
+		h3 Officer, Accounts and Administration
+		p Please fill the following form to apply for this post
+	div.modal-body
+		form.form-horizontal
+			.control-group
+					label.control-label(for='inputEmail') Name
+					.controls
+						input#inputEmail(type='text', placeholder='Full name')
+				.control-group
+					label.control-label(for='inputPassword') Contact Number
+					.controls
+						input#inputEmail(type='text', placeholder='Contact number')
+				.control-group
+					label.control-label(for='inputPassword') Files
+					.controls
+						p Please fill the following form to apply for this post
+						input#inputEmail(type='text', placeholder='Contact number')
+
