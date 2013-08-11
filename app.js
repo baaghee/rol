@@ -117,6 +117,21 @@ cms.add('services_packages',{
 		
 	}
 });
+cms.add('services_FAQCategory',{
+	searchable:true,
+	fields:{
+		name:{type:'string'}
+	}
+});
+cms.add('services_faq',{
+	searchable:true,
+	fields:{
+		name:{type:'string'},
+		category:{type:'string', source:'services_FAQCategory.name', autocomplete:true},
+		answer:{type:'string', multi:true, rtl:true}
+		
+	}
+});
 var app = express();
 
 // all environments
@@ -170,7 +185,23 @@ app.get('/company-info', function(req,res){
 	res.render('company-info');
 });
 app.get('/contact', function(req,res){
-	res.render('contact');
+	async.auto({
+		faq:function(fn){
+			cms
+			.services_faq
+			.find()
+			.lean()
+			.exec(fn);
+		}
+	}, 
+	function(err, page){
+		if(err) throw err;
+		for(var i=0; i<page.faq.length; i++){
+			var item = page.faq[i];
+			item.title = _.str.slugify(item.name) + "-" + item._id;
+		}
+		res.render('contact', page);
+	});	
 });
 app.get('/jobs', function(req,res){
 	async.auto({

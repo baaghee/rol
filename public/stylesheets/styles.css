@@ -505,4 +505,9 @@ a.product-listing{
      width:100%;
      min-height:300px; 
 }
-
+#faqs .accordion-group{
+	border:0;
+}
+#faqs .accordion-heading a{
+	font-size:12px;
+}

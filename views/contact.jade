@@ -18,27 +18,16 @@ block content
 								span.btn.cms-clear Clear
 						div#contact-faq.package-row
 							h2 FAQ
-							#faq
-								ul.unstyled
-									li
-										a(href='#') Apple ID Accounts
-									li Learn more about getting an Apple ID and its benefits.
-								ul.unstyled
-									li
-										a(href='#') AppleCare Protection Plan
-									li Find out how to extend your productâ€™s complimentary support.
-								ul.unstyled
-									li
-										a(href='#') Repair and Service
-									li See all your repair and service options based on your product and location.
-								ul.unstyled
-									li
-										a(href='#') Repair Status
-									li Quickly and easily get the status of one or all of your repairs.
-								ul.unstyled
-									li
-										a(href='#') Apple Support Communities
-									li Give and get help and tips from thousands of other Apple customers.
+							div#faqs
+								-each post in faq
+									div(id='faq' + post._id)
+										div.accordion-group
+											div.accordion-heading
+												a.accordion-toggle(href="#"+post.title, data-parent='#faq' + post._id, data-toggle="collapse")
+													span=post.name
+											div.accordion-body.collapse(style="height: 0px;", id=post.title)
+												div.accordion-inner
+													div!=post.answer
 					.span4
 						h4 Sales & Product Inquiries
 						div
