@@ -1,62 +1,14 @@
-extends layout
-
-block content
-	section#login-area.container
-			.row
-					#service-annoucement.span8
-						.span6
-							h3 Service Announcements
-							p
-								| The future of home management technology is being created now. Comcast is bringing the power of the cloud to home management.
-					.span4
-						.inner-box
-							h3 Sign in
-							form#sign-in-form
-								label(for='username') Login Type
-								select.span4.rol-select
-									option Internet Service
-									option Ketchup
-									option Barbecue
-								label(for='username') Username
-								input#username.span4.rol-input(type='type', text='text', name='username')
-								label(for='password') Password
-								input#password.span4.rol-input(type='type', text='text', name='password')
-								br
-								#login-form-footer
-									button.btn.btn-primary(type='submit') Sign in
-									input#stay-signed(type='checkbox', value='')
-									span#stay-signed-in Stay signed in
-	.separator
-		img(src='img/shadow.png')
-	section#body.container
-		#box-row.row
-			.span3
-				.inner-box
-					h3 Take your Internet with you
-					.img-placeholder
-						img.span3.spacer(src='http://www.shaw.ca/uploadedImages/Ecomm/Images/internet/Internet_ShawGoWiFi(1).jpg')
-					p
-						| The future of home management technology is being created now. Comcast is bringing the power of the cloud to home management.
-			.span3
-				.inner-box
-					h3 Save time by activating online
-					.img-placeholder
-						img.span3.spacer(src='https://fiber.google.com/img/plans/tv-box.jpg')
-					| ci
-					p
-						| Comcast's advanced fiber network powers small and mid-sized companies with the solutions they need to make their businesses more productive.
-			.span3
-				.inner-box
-					h3 Get the most out of your HD experience
-					.img-placeholder
-						img.span3(src='https://fiber.google.com/img/plans/channels.jpg')
-					p
-						| Building on a long history of success making the movies people love. Creating imaginative films to delight a growing worldwide audience.
-			.span3
-				.inner-box
-					h3 Save time by activating online
-					.img-placeholder
-						img.span3(src='http://www.shaw.ca/uploadedImages/Image_HDGuideSlider.jpg')
-					p
-						| We invent new technologies and drive innovation to transform the customer experience.
+doctype 5
+html(lang='en')
+	head
+		meta(charset='utf-8')
+		title LOGIN
+		link(href='/stylesheets/normalize.css', rel='stylesheet')
+		style img#back{display: block;margin: auto;min-width: 50%;min-height: 50%;top: 0;left: 0;right: 0;bottom: 0;} .back{position: fixed;width: 200%;height: 200%;left: -50%;background: #000;}
+	body
+		.back
+			div#b(style='left: 50%;position: absolute;')
+				h2 300MB / 25GB
+				img(src="/img/logo.png")
+			img(src="http://joyent.com/assets/img/homepage/background-photo.jpg")#back
 
