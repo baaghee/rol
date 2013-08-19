@@ -3,12 +3,65 @@ html(lang='en')
 	head
 		meta(charset='utf-8')
 		title LOGIN
-		link(href='/stylesheets/normalize.css', rel='stylesheet')
-		style img#back{display: block;margin: auto;min-width: 50%;min-height: 50%;top: 0;left: 0;right: 0;bottom: 0;} .back{position: fixed;width: 200%;height: 200%;left: -50%;background: #000;}
+		meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+		link(href='/stylesheets/bootstrap3/bootstrap.min.css', rel='stylesheet')
+		//link(href='/stylesheets/bootstrap3/bootstrap-theme.min.css', rel='stylesheet')
+		script(src='/stylesheets/bootstrap3/jquery.js')
+		script(src='/stylesheets/bootstrap3/button.js')
+		style
+			img#back{
+				display: block;
+				margin: auto;
+				min-width: 50%;
+				min-height: 50%;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+			}
+			.back{
+				position: fixed;
+				width: 200%;
+				height: 200%;
+				left: -50%;
+				background: #000;
+			}
+			#logo{
+				width:200px;
+			}
+			#login{
+				background:#f0f0f0;padding:20px;
+			}
+			.btn-primary.active{
+				background:#3276b1;
+			}
+			.btn-primary{
+				background:rgb(194, 219, 240);
+				border:none;
+			}
 	body
 		.back
-			div#b(style='left: 50%;position: absolute;')
-				h2 300MB / 25GB
-				img(src="/img/logo.png")
-			img(src="http://joyent.com/assets/img/homepage/background-photo.jpg")#back
+			div(style='left: 40%;position: absolute;')
+				div#login.row
+					div.col-md-4
+						//h2 300MB / 25GB
+						img#logo(src="/img/logo.png").img-responsive
+					div.col-md-8
+						form(role='form')
+							div.form-group
+								div.btn-group(data-toggle='buttons')
+									label.btn.btn-primary
+										input(type="radio",name="type")
+										| Internet
+									label.btn.btn-primary
+										input(type="radio",name="type")
+										| Dashboard
+							div.form-group
+								input(type='text', placeholder='Username').form-control
+								input(type='password', placeholder='Password').form-control
+							input(type='submit', value='Login').form-control.btn-success.btn
+							
+				div#info
+					a(href='') rol
+			img(src="/img/ppr.jpg")#back
 
