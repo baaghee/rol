@@ -30,7 +30,9 @@ html(lang='en')
 				width:200px;
 			}
 			#login{
-				background:#f0f0f0;padding:20px;
+				background:#f0f0f0;
+				padding:20px;
+				border-radius: 3px;
 			}
 			.btn-primary.active{
 				background:#3276b1;
@@ -39,29 +41,45 @@ html(lang='en')
 				background:rgb(194, 219, 240);
 				border:none;
 			}
-	body
+			#usage{
+				text-shadow: 1px 1px 2px rgba(0,0,0,.3);
+				color: white;			
+			}
 		.back
-			div(style='left: 40%;position: absolute;')
+			div(style='left: 40%;position: absolute;top:7%;')
+				-if(login == true)
+					h3#usage You have used 1.6GB out of 25GB
 				div#login.row
+					//div.row
+						h3 Please login to continue
 					div.col-md-4
 						//h2 300MB / 25GB
 						img#logo(src="/img/logo.png").img-responsive
 					div.col-md-8
-						form(role='form')
-							div.form-group
-								div.btn-group(data-toggle='buttons')
-									label.btn.btn-primary
-										input(type="radio",name="type")
-										| Internet
-									label.btn.btn-primary
-										input(type="radio",name="type")
-										| Dashboard
-							div.form-group
-								input(type='text', placeholder='Username').form-control
-								input(type='password', placeholder='Password').form-control
-							input(type='submit', value='Login').form-control.btn-success.btn
+						-if(login == true)
+							a.btn.btn-primary.btn-lg.btn-block(href='/login') Logout
+										
+						-else
+							form(role='form', method='post')
+								div.form-group
+									div.btn-group(data-toggle='buttons')
+										label.btn.btn-primary
+											input(type="radio",name="type")
+											| Internet
+										label.btn.btn-primary
+											input(type="radio",name="type")
+											| Dashboard
+								div.form-group
+									input(type='text', placeholder='Username').form-control
+									input(type='password', placeholder='Password').form-control
+								input(type='submit', value='Login').form-control.btn-success.btn
 							
-				div#info
-					a(href='') rol
+				ul.pull-right.list-inline
+					li
+						a(href='/')
+							small Terms
+					li
+						a(href='/')
+							small ROL
 			img(src="/img/ppr.jpg")#back
 

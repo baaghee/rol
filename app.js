@@ -234,6 +234,9 @@ app.get('/press/:article', function(req,res){
 app.get('/login', function(req,res){
 	res.render('login');
 });
+app.post('/login', function(req,res){
+	res.render('login',{login:true, used:"15MB", allowance:"25GB"});
+});
 app.get('/packages', function(req,res){
 	packages(req, res);
 });
