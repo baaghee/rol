@@ -287,7 +287,28 @@ app.get('/rol', function(req, res){
 			.find()
 			.lean()
 			.exec(fn);
+		},
+		press:function(fn){
+			cms.company_press
+			.find()
+			.sort({_id:-1})
+			//.lean() /* if lean is used it wont give ObjectId's timestamp */
+			.exec(function(err, docs){
+				if(err) throw err;
+				for(var i=0; i<docs.length; i++){
+					docs[i].url = "/press/" + _.str.slugify(docs[i].name);
+					docs[i].slug = _.str.slugify(docs[i].name);
+					docs[i].date = moment(docs[i]._id.getTimestamp()).format("DD/MM/YYYY");
+				}
+				var times = _.groupBy(docs,function(e){
+					var x = moment(e._id.getTimestamp()); 
+					var d = x.format('MMMM YYYY'); 
+					return d; 
+				});
+				fn(null,times);
+			});
 		}
+		
 	}, function(err, rol){
 		res.render('aboutus', rol);
 	});
