@@ -1,0 +1,15 @@
+extends layout
+
+block content
+	include components/subnavs
+	style .serv{background:#f0f0f0;padding:0;height:630px;}.package-box-inner{margin: 2.5%;}
+	section#body.container
+		#page.row
+			.pages-head.span12
+				h3 ROL Services
+				-each item in services
+					div.span4.serv
+						.package-box-inner
+							img(src="/files/" + item.image)
+							h2=item.name
+							h4(style='color:#777;font-weight:normal')=item.description

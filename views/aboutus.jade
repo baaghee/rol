@@ -1,0 +1,20 @@
+extends layout
+
+block content
+	include components/subnavs
+	section#body.container
+		.row
+			.span7
+				ul
+					li Info
+					li Philosophy
+					li Beliefs
+				h4 Joyent is the high-performance cloud infrastructure company, offering the only solution specifically built to power real-time web and mobile applications. 
+			.span4
+				img(src="http://www.joyent.com/content/08-company/header.jpg?v=1372167145")
+		.row
+			.span4
+				h4 Management
+			.span7
+				h4 Partners
+				-each person in rol

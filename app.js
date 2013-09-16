@@ -81,6 +81,13 @@ cms.add('services_categories',{
 		download:{type:'file'}
 	}
 });
+cms.add('services_services',{
+	fields:{
+		name:{type:'string'},
+		description:{type:'string', multi:true},
+		image:{type:'image', maintain_ratio:false,  crop_height:280, crop_width:330},
+	}
+});
 cms.add('sales_categories', {
 	searchable:true,
 	fields:{
@@ -132,6 +139,16 @@ cms.add('services_faq',{
 		
 	}
 });
+cms.add('company_management',{
+	searchable:true,
+	fields:{
+		name:{type:'string'},
+		position:{type:'string'},
+		details:{type:'string', multi:true},
+		image:{type:'image', maintain_ratio:false,  crop_height:215, crop_width:215}		
+	}
+});
+
 var app = express();
 
 // all environments
@@ -240,6 +257,12 @@ app.post('/login', function(req,res){
 app.get('/packages', function(req,res){
 	packages(req, res);
 });
+app.get('/services', function(req,res){
+	cms.services_services.find({}, function(err, services){
+		res.render('services', {services:services});
+	})
+});
+
 app.get('/packages/:package', function(req,res){
 	packages(req, res, req.params.package);
 });
@@ -256,6 +279,19 @@ app.get('/products/:category/:product', function(req, res){
 	var product = req.params.product;
 	products(req, res, req.params.category, product);
 });
+app.get('/rol', function(req, res){
+	async.auto({
+		management:function(fn){
+			cms
+			.company_management
+			.find()
+			.lean()
+			.exec(fn);
+		}
+	}, function(err, rol){
+		res.render('aboutus', rol);
+	});
+})
 function products(req, res, category, product){
 	if(product){
 		product = product.split("-");
