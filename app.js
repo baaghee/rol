@@ -74,6 +74,12 @@ cms.add('company_press', {
 		image:{type:'image', maintain_ratio:false,  crop_height:350, crop_width:700}
 	}
 });
+cms.add('company_information', {
+	fields:{
+		name:{type:'string'},
+		details:{type:'string', multi:true, rtl:true},
+	}
+});
 cms.add('services_categories',{
 	fields:{
 		name:{type:'string'},
@@ -321,6 +327,13 @@ app.get('/rol', function(req, res){
 				});
 				fn(null,times);
 			});
+		},
+		info:function(fn){	
+			cms
+			.company_information
+			.find()
+			.lean()
+			.exec(fn);
 		}
 		
 	}, function(err, rol){
