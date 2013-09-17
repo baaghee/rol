@@ -148,6 +148,13 @@ cms.add('company_management',{
 		image:{type:'image', maintain_ratio:false,  crop_height:215, crop_width:215}		
 	}
 });
+cms.add('company_affiliates',{
+	searchable:true,
+	fields:{
+		name:{type:'string'},
+		image:{type:'image', maintain_ratio:true}		
+	}
+});
 
 var app = express();
 
@@ -284,6 +291,13 @@ app.get('/rol', function(req, res){
 		management:function(fn){
 			cms
 			.company_management
+			.find()
+			.lean()
+			.exec(fn);
+		},
+		affiliates:function(fn){
+			cms
+			.company_affiliates
 			.find()
 			.lean()
 			.exec(fn);
