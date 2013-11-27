@@ -1,0 +1,66 @@
+extends layout
+
+block content
+	section.row
+		section.span3
+			h4 menus
+			div(id='accordian_#routes')
+				div.accordion-group
+					div.accordion-heading
+						a.accordion-toggle.capitalize(href="#collapse_#routes",data-parent="#accordion_#routes",data-toggle="collapse") Routes
+					div.accordion-body.in.collapse(style="height: auto; ", id='collapse_#routes')
+						div.accordion-inner.no-padding
+							ul.cms-load
+								li.capitalize Routes
+		section.span10	
+			section.span10#component-search-container
+				section.well
+					input(type='text', placeholder='Search...')#component-search
+			section#componentsblock.span10
+			section#components.span10
+				div.accordion-group
+					div.accordion-heading
+						a.accordion-toggle(href="#collapse_#routes",data-parent="#accordion_#routes",data-toggle="collapse")
+							span.label GET 
+							span(style="color:#c0c0c0") &nbsp;http://website.com
+							span(style="font-weight:bold") /pan
+					div.accordion-body.in.collapse(style="height: 0; ", id='collapse_#routes')
+						div.accordion-inner.no-padding
+							ul.cms-load
+								li.capitalize Routes
+				div.accordion-group
+					div.accordion-heading
+						a.accordion-toggle(href="#collapse_#routes",data-parent="#accordion_#routes",data-toggle="collapse")
+							span.label GET 
+							span(style="color:#c0c0c0") &nbsp;http://website.com
+							span(style="font-weight:bold") /pan/:id
+					div.accordion-body.in.collapse(style="height: 0; ", id='collapse_#routes')
+						div.accordion-inner.no-padding
+							ul.cms-load
+								li.capitalize Routes
+				div.accordion-group
+					div.accordion-heading
+						a.accordion-toggle(href="#collapse_#routes",data-parent="#accordion_#routes",data-toggle="collapse")
+							span.label.label-info POST 
+							span(style="color:#c0c0c0") &nbsp;http://website.com
+							span(style="font-weight:bold") /pan
+					div.accordion-body.in.collapse(style="height: 0; ", id='collapse_#routes')
+						div.accordion-inner.no-padding
+							ul.cms-load
+								li.capitalize Routes
+				div.accordion-group
+					div.accordion-heading
+						a.accordion-toggle(href="#collapse_#routes",data-parent="#accordion_#routes",data-toggle="collapse")
+							span.label GET 
+							span(style="color:#c0c0c0") &nbsp;http://website.com
+							span(style="font-weight:bold") /pan
+					div.accordion-body.in.collapse(style="height: auto; ", id='collapse_#routes')
+						div.accordion-inner.no-padding
+							div.btn-group(data-toggle="buttons-radio")
+								button.btn.btn-info GET
+								button.btn.btn-info POST
+								button.btn.btn-info PUT
+								button.btn.btn-info DELETE
+							div(style='padding: 10px 0px;border: solid 1px #c0c0c0;display: inline;')
+								span(style='    display: inline-block;    color: #c0c0c0;') http://website.com/
+								span(contenteditable="true", style='    width: 50%;    display: inline-block;') url
