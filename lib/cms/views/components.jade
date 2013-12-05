@@ -1,0 +1,44 @@
+extends layout
+
+block content
+	section.row
+		section.span3
+			h4 menus
+			div(id='accordian_#routes')
+				div.accordion-group
+					div.accordion-heading
+						a.accordion-toggle.capitalize(href="#collapse_#routes",data-parent="#accordion_#routes",data-toggle="collapse") Routes
+					div.accordion-body.in.collapse(style="height: auto; ", id='collapse_#routes')
+						div.accordion-inner.no-padding
+							ul.cms-load
+								li.capitalize Routes
+		section.span10	
+			section.span10#component-search-container
+				section.well
+					input(type='text', placeholder='Search...')#component-search
+			section#componentsblock.span10
+			section#components.span10
+				div.accordion-group
+					div.accordion-heading
+						a.accordion-toggle(href="#collapse_#routes",data-parent="#accordion_#routes",data-toggle="collapse")
+							span Create a new component
+					div.accordion-body.in.collapse(style="height: auto; ", id='collapse_#routes')
+						div.accordion-inner.no-padding
+							ul.nav.nav-tabs
+								li
+									a(href="#home", data-toggle="tab") Properties
+								li
+									a(href="#data", data-toggle="tab") Data Sources
+								li
+									a(href="#a", data-toggle="tab") Design
+								li
+									a(href="#a", data-toggle="tab") Control
+							div.tab-content
+								div.tab-pane.active#home
+									div
+										div.btn-group(data-toggle='buttons-radio')
+											button(type="button").btn.btn-info Service
+											button(type="button").btn.btn-info Component
+								div.tab-pane#data
+									h3 helloss
+

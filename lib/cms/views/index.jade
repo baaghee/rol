@@ -3,8 +3,8 @@ extends layout
 block content
 	section.row
 		section.span3
-			div.well
-				h4 menus
+			div
+				button(type='button',data-toggle="modal", data-target="#new-data-source-modal").btn.btn-block.btn-primary New data source
 			- each menu,key in menus
 				div(id='accordian_#{key}')
 					div.accordion-group
@@ -33,47 +33,30 @@ block content
 
 
 	//manual modals
-
-	div#carouselModal.modal.hide.fade(tabindex='-1',role='dialog',aria-labelledby='myModalLabel',aria-hidden='true',style='display: none;')
+	div#new-data-source-modal.modal.hide.fade(tabindex='-1',role='dialog',aria-hidden='true',style='display: none;')
 		div.modal-header
 			button.close(type='button',data-dismiss='modal',aria-hidden='true') ×
-			h4#myModalLabel Edit Carousel Image 1
-		div.modal-body
-			div.fileupload.fileupload-new.carouselBodyModal(data-provides='fileupload')
-				div.fileupload-new.thumbnail(style='width: 200px; height: 150px;')
-					img(src='http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image')#slider-pic-display
-				div.fileupload-preview.fileupload-exists.thumbnail(style='max-width: 200px; max-height: 150px; line-height: 20px;')
-				div
-					span.btn.btn-file
-						span.fileupload-new Select image
-						span.fileupload-exists Change
-						input#slider-pic-file(type='file', cms-type='image')
-					a.btn.fileupload-exists(href='#',data-dismiss='fileupload') Remove
-			div.span3#slider-pic-information
-		div.modal-footer
-			button.btn(data-dismiss='modal',aria-hidden='true') Close
-			button.btn.btn-primary#slider-pic-set Save changes
-
-	div#featuredModal.modal.hide.fade(tabindex='-1',role='dialog',aria-hidden='true',style='display: none;')
-		div.modal-header
-			button.close(type='button',data-dismiss='modal',aria-hidden='true') ×
-			h4 Edit product
-		div.modal-body
-			input(type='text', placeholder='search for a product')#featured-product-search
-			div#featured-product-display
-		
-	div#popularModal.modal.hide.fade(tabindex='-1',role='dialog',aria-hidden='true',style='display: none;')
-		div.modal-header
-			button.close(type='button',data-dismiss='modal',aria-hidden='true') ×
-			h4 Edit product
-		div.modal-body
-			input(type='text', placeholder='search for a product')#popular-product-search
-			div#popular-product-display
-	div#imageCropModal.modal.hide.fade(tabindex='-1',role='dialog',aria-hidden='true',style='display: none;width:auto;left:25%;top:3%;')
-		div.modal-header
-			button.close(type='button',data-dismiss='modal',aria-hidden='true') ×
-			h4 Crop images
+			h4 New Data Source
 		div.modal-body(style='max-height:700px')
-			div#image_crop_pics()
+			div.form-horizontal
+				div.control-group
+					label.control-label Collection
+					div.controls
+						input(type='text')
+				div.control-group
+					label.control-label Parent
+					div.controls
+						input(type='text')
+				hr
+				div#stuff
+					div.control-group
+						label.control-label
+						div.controls
+							input(type='text')
+				
+				div.control-group
+					label.control-label
+					div.controls
+						button(type='button').btn.btn-danger.btn-block Add field
 		div.modal-footer
 			button.btn.btn-primary#image_crop_set(data-dismiss="modal", aria-hidden="true") Crop
