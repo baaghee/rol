@@ -14,9 +14,12 @@
     "underscore.string": "~2.3.3",
     "jade-browser": "0.0.13",
     "moment": "~2.1.0",
-    "mongoose": "~3.8.1"
+    "mongoose": "~3.8.1",
+    "uglifyjs": "~2.3.6",
+    "uglify-js": "~2.4.7"
   },
   "devDependencies": {
-    "chai": "~1.8.1"
+    "chai": "~1.8.1",
+    "jsdom": "~0.8.9"
   }
 }
